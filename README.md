@@ -1,5 +1,11 @@
 # Sistemas Inteligentes
 
+Grupo conformado por:
+  Vasquez Ospina Adriana Patricia
+  Osorno Palacio Leury Wilmer
+  Rios Galeano Kevin Alejandro
+  Londoño Zapata Fabio Andrés
+
 Se busca crear un aplicativo móvil, que permita al usuario ingresar el nombre de un medicamento, ya sea como texto o con comandos de voz, siguiendo los siguientes parámetros:
 
 - Permitirá recolectar la información básica del usuario, incluyendo su ubicación.
