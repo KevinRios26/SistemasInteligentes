@@ -1,0 +1,14 @@
+Proyecto FarmApp
+
+Grupo conformado por:
+
+Vasquez Ospina Adriana Patricia
+Osorno Palacio Leury Wilmer
+Rios Galeano Kevin Alejandro
+Londoño Zapata Fabio Andrés
+
+Se entrega el código que realiza la búsqueda de los datos de los medicamentos, para ordenarlos y mostrarlos de acuerdo con el valor de los productos. Se carga además la interfaz gráfica con Flask, la cual se encuentra en adecuación para su vinculación con el proyecto.
+
+
+GirHub: https://github.com/KevinRios26/SistemasInteligentes
+Jira: https://asmutual.atlassian.net/jira/software/projects/FAR/boards/3
