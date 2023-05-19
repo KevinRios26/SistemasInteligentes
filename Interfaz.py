@@ -2,7 +2,7 @@ from googlemaps import client
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import googlemaps
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 @app.route('/')
 def index():
@@ -52,5 +52,5 @@ def search_address():
 
     return jsonify({"latitude": location['lat'], "longitude": location['lng']}), 200
 
-if _name_ == '_main_':
+if __name__ == '_main_':
     app.run(debug=True)
