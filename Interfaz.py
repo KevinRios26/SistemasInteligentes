@@ -1,6 +1,8 @@
+from FarmApp import buscar_med
 from googlemaps import client
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import googlemaps
+
 
 app = Flask(__name__)
 
@@ -9,10 +11,14 @@ def index():
     return render_template('index.html')
 
 @app.route('/results', methods=['POST'])
+
 def results():
     idpersona = request.form['idpersona']
     medicamento = request.form['medicamento']
     direccion = request.form['direccion']
+
+    datos = buscar_med(medicamento)
+    #print(resultado_busqueda)
 
     # <button type="submit" class="btn btn-primary" onclick="window.history.back()">Regresar</button>
     resultados = [
@@ -33,7 +39,10 @@ def results():
             'link': 'https://www.farmaciaspasteur.com.co/dolex'
         }
     ]
-    return render_template('results.html', resultados=resultados)
+
+    resultado_busqueda = datos.to_dict(orient='records')
+
+    return render_template('results.html', resultado_busqueda=resultado_busqueda)
 
 gmaps = googlemaps.Client(key='AIzaSyBsm0adgLvMBb1jbz2YgIDvRRSCwmoRP0M')
 

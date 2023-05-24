@@ -24,22 +24,22 @@
         <thead>
             <tr>
                 <th class="table-info">Nombre del medicamento</th>
-                <th class="table-info">Farmacia</th>
-                <th class="table-info">Descripcion</th>
+                <!-- <th class="table-info">Farmacia</th> -->
+                <!-- <th class="table-info">Descripcion</th>  -->
                 <th class="table-info">Precio</th>
-                <th class="table-info">Link</th>
+                <th class="table-info">Farmacia</th> 
             </tr>
 
         </thead>
 
         <tbody>
-            {% for resultado in resultados %}
+            {% for resultado in resultado_busqueda %}
             <tr>
-                <td >{{ resultado.nombre }}</td>
-                <td>{{ resultado.farmacia }}</td>
-                <td>{{ resultado.descripcion }}</td>
-                <td>{{ resultado.precio }}</td>
-                <td><a href="{{ resultado.link }}">Comprar</a></td>
+                {% for value in resultado.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+                <!-- <td>{{ resultado.precio }}</td> -->
+                <!-- <td><a href="{{ resultado.link }}">Comprar</a></td> -->
             </tr>
             
             {% endfor %}
