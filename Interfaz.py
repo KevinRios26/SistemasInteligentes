@@ -1,50 +1,89 @@
-from FarmApp import buscar_med
-from googlemaps import client
+from FarmApp import *
+from DatosFA import *
+from ChatGPT import interactuar_con_chatgpt
+
 from flask import Flask, render_template, request, redirect, url_for, jsonify
-import googlemaps
+
+import pyttsx3
+
 
 
 app = Flask(__name__)
+engine = pyttsx3.init()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    saludo = "Bienvenido a FarmApp - Bienestar a tu puerta"
+    return render_template('index.html', saludo=saludo)
 
-@app.route('/results', methods=['POST'])
+@app.route('/ChatGPT', methods=['POST'])
+def mostrar_respuesta():
+    medicamento = request.form['med']
+    usuario={'nombre': request.form['nom'], 'edad': request.form['eda'] }
+    bus1="como se usa el "+medicamento+" en personas de "+usuario['edad']+"años"
+    bus2="posología de "+medicamento+" en personas de "+usuario['edad']+"años"
+    bus3="cuales son los efectos secundarios de "+medicamento+" en personas de "+usuario['edad']+"años"
+    respuesta1 = interactuar_con_chatgpt(bus1)
+    respuesta2 = interactuar_con_chatgpt(bus2)
+    respuesta3 = interactuar_con_chatgpt(bus3)
 
-def results():
-    idpersona = request.form['idpersona']
+    return render_template('mas_info.html', r1=respuesta1, r2=respuesta2, r3=respuesta3, usuario=usuario, medicamento=medicamento)
+
+
+
+@app.route('/resultado', methods=['POST'])
+def resultado():    
     medicamento = request.form['medicamento']
-    direccion = request.form['direccion']
+    usuario={'nombre': request.form['nom'], 'edad': request.form['eda'],'direccion':request.form['dir'] }
+    
+    datos = buscar_med(medicamento)   
 
-    datos = buscar_med(medicamento)
-    #print(resultado_busqueda)
+    bus1="como se usa el "+medicamento+" en personas de "+usuario['edad']+"años"
+    bus2="posología de "+medicamento+" en personas de "+usuario['edad']+"años"
+    bus3="cuales son los efectos secundarios de "+medicamento+" en personas de "+usuario['edad']+"años"
+    respuesta1 = interactuar_con_chatgpt(bus1)
+    respuesta2 = interactuar_con_chatgpt(bus2)
+    respuesta3 = interactuar_con_chatgpt(bus3)
 
-    # <button type="submit" class="btn btn-primary" onclick="window.history.back()">Regresar</button>
-    resultados = [
-        {
-            'nombre': 'Acetaminofen',
-            'farmacia': 'La rebaja',
-            'descripcion': 'Tabletas',
-            'precio': '8000.00',
-            'direccion': 'Calle 80, Medellin',
-            'link': 'https://www.larebajavirtual.com/acetaminofen'
-        },
-        {
-            'nombre': 'Dolex',
-            'farmacia': 'Pasteur',
-            'descripcion': 'Tableta',
-            'precio': '15000.00',
-            'direccion': 'Calle 94, Medellin',
-            'link': 'https://www.farmaciaspasteur.com.co/dolex'
-        }
-    ]
 
+
+    # <button type="submit" class="btn btn-primary" onclick="window.history.back()">Regresar</button> 
     resultado_busqueda = datos.to_dict(orient='records')
+    return render_template('results.html', r1=respuesta1, r2=respuesta2, r3=respuesta3, resultado_busqueda=resultado_busqueda, medicamento=medicamento, usuario=usuario)
 
-    return render_template('results.html', resultado_busqueda=resultado_busqueda)
+@app.route('/leer-texto')
+def leer_texto():
+    texto = 'Hola, esto es un ejemplo de texto a voz.'
+    engine.say(texto)
+    engine.runAndWait()
+    #return texto
 
-gmaps = googlemaps.Client(key='AIzaSyBsm0adgLvMBb1jbz2YgIDvRRSCwmoRP0M')
+
+#gmaps = googlemaps.Client(key='AIzaSyBsm0adgLvMBb1jbz2YgIDvRRSCwmoRP0M')
+
+@app.route('/usuario', methods=['POST'])
+def usuario():
+    print("buscando persona")
+    idpersona = request.form['idpersona']    
+    usuario = buscar_usuario(idpersona)
+    if usuario:
+        print("lo encuentra")
+        edad = usuario['edad']
+        return render_template('busqueda.html', usuario=usuario)
+    else:
+        print("no lo necuentra")        
+        return render_template('usuario.html', usuario=idpersona)
+    
+
+@app.route('/busqueda', methods=['POST'])
+def guardar_usuario():
+    print('entro a guardar')
+    idpersona = request.form['idpersona']
+    edad = request.form['idedad']
+    direccion = request.form['direccion']
+    usuario = {'nombre': idpersona,'edad': edad,'direccion': direccion}
+    agregar_usuario(usuario)
+    return render_template('busqueda.html', usuario=usuario)
 
 @app.route('/search_address', methods=['GET'])
 def search_address():
