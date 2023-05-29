@@ -1,0 +1,25 @@
+.logo{
+    margin: auto;
+    max-width: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logo_full{
+    object-fit: cover;
+  width:100%;
+  height:100%;
+    
+}
+
+.contenedor{
+    text-align: center;
+    
+}
+
+
+body {
+    background: linear-gradient(to bottom, #44A6F1, #99C667);
+  }
+
+  

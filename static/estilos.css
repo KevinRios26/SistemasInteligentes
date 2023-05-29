@@ -61,8 +61,18 @@ tr{
 
 .contenedor{
     text-align: center;
+    
 }
 
+.contenedor2{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.columna {
+    flex: 1;
+    padding: 10px;
+}
 form {
     display: flex;
     font-size: 25px;
