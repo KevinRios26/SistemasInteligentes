@@ -20,9 +20,7 @@ def buscar_med(dato):
     Urlss=dict()
 
     Urlss['https://www.farmaciaspasteur.com.co/xx?_q=xx&map=ft']=['//span[@class="vtex-product-summary-2-x-productBrand vtex-product-summary-2-x-brandName t-body"]','//span[@class="vtex-product-price-1-x-sellingPriceValue"]','//a[@class="vtex-product-summary-2-x-clearLink vtex-product-summary-2-x-clearLink--main-vitrine-content h-100 flex flex-column"]']
-    #Urlss['https://www.cruzverde.com.co/search?query=xx']=['//a[@class="font-open flex items-center text-main text-16 sm:text-18 leading-20 font-semibold ellipsis hover:text-accent"]','//span[@class="font-bold text-prices"]','']
-
-
+    Urlss['https://www.cruzverde.com.co/search?query=xx']=['//a[@class="font-open flex items-center text-main text-16 sm:text-18 leading-20 font-semibold ellipsis hover:text-accent"]','//span[@class="font-bold text-prices"]','//a[@class="font-open flex items-center text-main text-16 sm:text-18 leading-20 font-semibold ellipsis hover:text-accent"]']
    
     medicamento=dato.replace(" ","+")
     elementos=[]
@@ -58,5 +56,5 @@ def buscar_med(dato):
 
     return info_orden
 
-
+print(buscar_med("dolex"))
 
